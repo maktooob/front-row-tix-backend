@@ -10,26 +10,26 @@ router.get('/events', (req, res, next) => {
 })
 
 router.post('/events', (req, res, next) => {
-  const {title, description, image, category, price} = req.body
-  Event.create({title, description, image, category, price}).then((response) =>
+  const {title, description, image, category, location, price} = req.body
+  Event.create({title, description, image, category, location, price}).then((response) =>
     res.json(response)
   )
 })
 
 router.get('/events/:id', (req, res, next) => {
   const {id} = req.params
-  if (!mongoose.Types.ObjectId.isValid(projectId)) {
+  if (!mongoose.Types.ObjectId.isValid(id)) {
     res.status(400).json({message: 'Specified id is not valid'})
     return
   }
-  Events.findById(id)
+  Event.findById(id)
     .then((event) => res.json(event))
     .catch((e) => console.log(' Can´t find Event by ID', e))
 })
 
 router.put('/events/:id', (req, res, next) => {
   const {id} = req.params
-  if (!mongoose.Types.ObjectId.isValid(projectId)) {
+  if (!mongoose.Types.ObjectId.isValid(id)) {
     res.status(400).json({message: 'Specified id is not valid'})
     return
   }
@@ -41,7 +41,7 @@ router.put('/events/:id', (req, res, next) => {
 
 router.delete('/events/:id', (req, res, next) => {
   const { id } = req.params
-  if (!mongoose.Types.ObjectId.isValid(projectId)) {
+  if (!mongoose.Types.ObjectId.isValid(id)) {
     res.status(400).json({message: 'Specified id is not valid'})
     return
   }

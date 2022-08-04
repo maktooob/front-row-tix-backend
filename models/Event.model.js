@@ -4,24 +4,28 @@ const eventSchema = new Schema(
   {
     title: {
       type: String,
-      required: true
+      //required: true
     },
     description: {
       type: String,
-      required: true
+      //required: true
     },
-    title: {
+    image: {
       type: String,
-      required: true
+      //required: true
     },
     category: {
       type: [String],
-      enum: ["sport", "concert", "culture"],
-      required: true
+      enum: ["sports", "concert", "culture"],
+      //required: true
     },
     price: {
       type: Number,
-      required: true
+      //required: true
+    },
+    location: {
+      type: String,
+      //required: true
     }
   },
   {

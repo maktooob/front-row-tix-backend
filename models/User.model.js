@@ -1,4 +1,4 @@
-const { Schema, model } = require("mongoose");
+const { Schema, model, SchemaType } = require("mongoose");
 
 const userSchema = new Schema(
   {
@@ -7,7 +7,13 @@ const userSchema = new Schema(
       unique: true 
     },
     password: String,
+    cart: [{
+      type : [Schema.Types.ObjectId], 
+      ref: "Event"
+    }],
+    // order history -> Order model
   },
+
   {
     timestamps: true,
   }
