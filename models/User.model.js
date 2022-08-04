@@ -6,6 +6,10 @@ const userSchema = new Schema(
       type: String,
       unique: true 
     },
+    username: {
+      type: String,
+      unique: true 
+    },
     password: String,
     cart: [{
       type : [Schema.Types.ObjectId], 
