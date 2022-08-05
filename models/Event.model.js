@@ -15,7 +15,7 @@ const eventSchema = new Schema(
       //required: true
     },
     category: {
-      type: [String],
+      type: String,
       enum: ["sports", "concert", "culture"],
       //required: true
     },

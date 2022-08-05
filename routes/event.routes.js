@@ -1,5 +1,6 @@
 const router = require('express').Router()
 const mongoose = require('mongoose')
+const { isAuthenticated } = require('../middleware/jwt.middleware')
 const Event = require('../models/Event.model')
 const {events} = require('../models/User.model')
 
@@ -27,7 +28,7 @@ router.get('/events/:id', (req, res, next) => {
     .catch((e) => console.log(' Can´t find Event by ID', e))
 })
 
-router.put('/events/:id', (req, res, next) => {
+router.put('/events/:id', isAuthenticated, (req, res, next) => {
   const {id} = req.params
   if (!mongoose.Types.ObjectId.isValid(id)) {
     res.status(400).json({message: 'Specified id is not valid'})
@@ -39,7 +40,7 @@ router.put('/events/:id', (req, res, next) => {
   .catch(e => console.log("Updating the event failed", e))
 })
 
-router.delete('/events/:id', (req, res, next) => {
+router.delete('/events/:id', isAuthenticated, (req, res, next) => {
   const { id } = req.params
   if (!mongoose.Types.ObjectId.isValid(id)) {
     res.status(400).json({message: 'Specified id is not valid'})

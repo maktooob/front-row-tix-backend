@@ -6,7 +6,7 @@ const userSchema = new Schema(
       type: String,
       unique: true 
     },
-    username: {
+    email: {
       type: String,
       unique: true 
     },
@@ -14,8 +14,13 @@ const userSchema = new Schema(
     cart: [{
       type : [Schema.Types.ObjectId], 
       ref: "Event"
+      // order history -> Order model
     }],
-    // order history -> Order model
+    status: {
+      type: String,
+      enum: ["user", "admin"],
+      default: "user"
+    }
   },
 
   {
