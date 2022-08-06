@@ -16,7 +16,7 @@ const User = require("../models/User.model");
 
 
 router.post("/signup", (req, res) => {
-  const { username, email, password } = req.body;
+  const { username, email, password, status } = req.body;
   if (!username) {
     return res
       .status(400)
@@ -80,7 +80,7 @@ router.post("/signup", (req, res) => {
 
 router.post("/login", (req, res, next) => {
   const { username, password } = req.body;
-
+  console.log(req.body)
   if (!username) {
     return res
       .status(400)
@@ -96,7 +96,7 @@ router.post("/login", (req, res, next) => {
   }
 
   // Search the database for a user with the username submitted in the form
-  User.findOne({ name: username })
+  User.findOne({ username })
     .then((user) => {
       // If the user isn't found, send the message that user provided wrong credentials
       if (!user) {
@@ -111,10 +111,10 @@ router.post("/login", (req, res, next) => {
 
         //at this point, we know that credentials are correct (login is successful)
         
-        const { _id, email, name } = user;
+        const { _id, email, username, status } = user;
         console.log(user,"just logged in")
         // Create an object that will be set as the token payload
-        const payload = { _id, email, name };
+        const payload = { _id, email, username, status };
 
         // Create and sign the token
         const authToken = jwt.sign(

@@ -1,8 +1,10 @@
 const router = require('express').Router()
 const mongoose = require('mongoose')
+const { isAdmin } = require('../middleware/isAdmin.middleware')
 const { isAuthenticated } = require('../middleware/jwt.middleware')
 const Event = require('../models/Event.model')
 const {events} = require('../models/User.model')
+
 
 router.get('/events', (req, res, next) => {
   Event.find().then((allEvents) => {
@@ -26,6 +28,9 @@ router.get('/events/:id', (req, res, next) => {
   Event.findById(id)
     .then((event) => res.json(event))
     .catch((e) => console.log(' Can´t find Event by ID', e))
+})
+router.get('/events/edit/:id', isAuthenticated,  (req, res, next) => {
+
 })
 
 router.put('/events/:id', isAuthenticated, (req, res, next) => {
