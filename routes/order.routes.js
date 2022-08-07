@@ -2,7 +2,31 @@ const router = require('express').Router()
 const mongoose = require('mongoose')
 
 const { isAuthenticated } = require('../middleware/jwt.middleware')
+const Event = require('../models/Event.model')
 const Order = require('../models/Order.model')
+
+// router.get("/orders/:id", (req, res, next) => {
+//     const id = req.params
+//     console.log(id)
+//     Order.find({userId: {$in: mongoose.Types.ObjectId(id)}})
+//     .then(res => {
+//         console.log(res)
+//         res.json(res)
+//     })
+//     .catch(e => console.log(e))
+// })
+router.get('/orders/:id', (req, res, next) => {
+    const {id} = req.params
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+      res.status(400).json({message: 'Specified id is not valid'})
+      return
+    }
+    Order.find({userId: {$in: mongoose.Types.ObjectId(id)}})
+    .populate("events.eventId")
+      .then((orders) => res.json(orders))
+      
+      .catch((e) => console.log(' Error finding orders of that user!', e))
+  })
 
 
 router.post("/order", (req, res, next) => {
