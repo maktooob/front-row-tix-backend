@@ -13,8 +13,8 @@ router.get('/events', (req, res, next) => {
 })
 
 router.post('/events', (req, res, next) => {
-  const {title, description, image, category, location, price} = req.body
-  Event.create({title, description, image, category, location, price}).then((response) =>
+  const {title, description, image, category, location, date, price} = req.body
+  Event.create({title, description, image, category, location, date, price}).then((response) =>
     res.json(response)
   )
 })
