@@ -4,18 +4,23 @@ const userSchema = new Schema(
   {
     username: {
       type: String,
-      unique: true 
+      unique: true,
+      required: true 
     },
     email: {
       type: String,
-      unique: true 
+      unique: true,
+      required: true
     },
-    password: String,
-    cart: [{
-      type : [Schema.Types.ObjectId], 
-      ref: "Event"
-      // order history -> Order model
-    }],
+    password: {
+      type: String,
+      required: true
+    },
+    // cart: [{
+    //   type : [Schema.Types.ObjectId], 
+    //   ref: "Event"
+    //   // order history -> Order model
+    // }],
     status: {
       type: String,
       enum: ["user", "admin"],
