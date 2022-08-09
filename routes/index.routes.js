@@ -3,7 +3,7 @@ const authRoutes = require("./auth.routes");
 
 /* GET home page */
 router.get("/", (req, res, next) => {
-  res.json("All good in here");
+  res.json("All good in here :)");
 });
 
 router.use("/auth", authRoutes);

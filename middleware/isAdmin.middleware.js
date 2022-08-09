@@ -1,9 +1,9 @@
 module.exports = {
     isAdmin: (req, res, next) =>{
-        if(req.user.admin){
+        if(req.headers.user === "admin"){
             next();
         }else{
-            res.status(403).send();
+            res.status(403).json({ message: "You don´t have permission to do that, buddy!" });
         }
     }
 }

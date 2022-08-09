@@ -8,18 +8,19 @@ const fileUploader = require("../config/cloudinary.config")
 
 router.get('/events', (req, res, next) => {
   Event.find().then((allEvents) => {
+    console.log("headers user",req.headers.user)
     res.json(allEvents)
   })
 })
 
-router.post('/events', (req, res, next) => {
+router.post('/events', isAdmin, (req, res, next) => {
   const {title, description, image, category, location, date, price} = req.body
   Event.create({title, description, image, category, location, date, price}).then((response) =>
     res.json(response)
   )
 })
 
-router.post("/upload", fileUploader.single("image"), (req, res, next) => {
+router.post("/upload", isAdmin, fileUploader.single("image"), (req, res, next) => {
   console.log("file is: ", req.file)
  
   if (!req.file) {
@@ -44,11 +45,11 @@ router.get('/events/:id', (req, res, next) => {
     .then((event) => res.json(event))
     .catch((e) => console.log(' Can´t find Event by ID', e))
 })
-router.get('/events/edit/:id', isAuthenticated,  (req, res, next) => {
+router.get('/events/edit/:id', isAdmin,  (req, res, next) => {
 
 })
 
-router.put('/events/:id', isAuthenticated, (req, res, next) => {
+router.put('/events/:id', isAdmin, (req, res, next) => {
   const {id} = req.params
   if (!mongoose.Types.ObjectId.isValid(id)) {
     res.status(400).json({message: 'Specified id is not valid'})
@@ -60,7 +61,7 @@ router.put('/events/:id', isAuthenticated, (req, res, next) => {
   .catch(e => console.log("Updating the event failed", e))
 })
 
-router.delete('/events/:id', isAuthenticated, (req, res, next) => {
+router.delete('/events/:id', isAdmin, (req, res, next) => {
   const { id } = req.params
   if (!mongoose.Types.ObjectId.isValid(id)) {
     res.status(400).json({message: 'Specified id is not valid'})
