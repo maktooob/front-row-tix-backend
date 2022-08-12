@@ -1,5 +1,5 @@
 const { Schema, model } = require("mongoose");
-
+const url = "https://i.stack.imgur.com/34AD2.jpg"
 const eventSchema = new Schema(
   {
     title: {
@@ -12,7 +12,7 @@ const eventSchema = new Schema(
     },
     image: {
       type: String,
-      //required: true
+      default: url
     },
     category: {
       type: String,

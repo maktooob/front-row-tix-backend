@@ -6,34 +6,30 @@ const Event = require('../models/Event.model')
 const {events} = require('../models/User.model')
 const fileUploader = require("../config/cloudinary.config")
 
+
+
 router.get('/events', (req, res, next) => {
-  Event.find().then((allEvents) => {
-    console.log("headers user",req.headers.user)
+  Event.find()
+  .then((allEvents) => {
     res.json(allEvents)
   })
+  .catch(e => console.log(e))
 })
+
+
 
 router.post('/events', isAdmin, (req, res, next) => {
   const {title, description, image, category, location, date, price} = req.body
-  Event.create({title, description, image, category, location, date, price}).then((response) =>
-    res.json(response)
-  )
+  Event.create({title, description, image, category, location, date, price})
+  .then((response) =>
+    res.json(response))
+    .catch(e => console.log(e))
 })
 
-router.post("/upload", isAdmin, fileUploader.single("image"), (req, res, next) => {
-  console.log("file is: ", req.file)
- 
-  if (!req.file) {
-    next(new Error("No file uploaded!"));
-    return;
-  }
-  
-  // Get the URL of the uploaded file and send it as a response.
-  // 'fileUrl' can be any name, just make sure you remember to use the same when accessing it on the frontend
-  
-  res.json({ fileUrl: req.file.path });
-});
-
+router.post("/upload",  fileUploader.single("image"), (req, res, next) => {
+  if(Object.keys(req).includes("file")) res.json({ fileUrl: req.file.path })
+  else { res.json({ fileUrl: "https://i.stack.imgur.com/34AD2.jpg"})}
+})
 
 router.get('/events/:id', (req, res, next) => {
   const {id} = req.params
