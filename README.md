@@ -20,8 +20,13 @@ run the application: npm run dev
 Need to create .env file with these variables:
 PORT=5005
 ORIGIN=http://localhost:3000
+
 TOKEN_SECRET=ilovepizza
+
 CLOUDINARY_NAME="YOUR CLOUDINARY NAME"
+
 CLOUDINARY_KEY="YOUR CLOUDINARY KEY"
+
 CLOUDINARY_SECRET="YOUR CLOUDINARY SECRET"
+
 
