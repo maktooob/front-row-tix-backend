@@ -80,7 +80,7 @@ router.post("/signup", (req, res) => {
 
 router.post("/login", (req, res, next) => {
   const { username, password } = req.body;
-  console.log(req.body)
+  console.log("getting from signup",req.body)
   if (!username) {
     return res
       .status(400)
